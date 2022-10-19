@@ -11,7 +11,7 @@ import {
    IFetchCompanyOptions,
    INewsData,
 } from '../../../types'
-import { prisma } from '../../db'
+import { prisma } from '../../../db'
 import { toast } from 'react-toastify'
 import { dateHelper } from '../../../helpers/dateHelper'
 
@@ -157,7 +157,6 @@ const filterNewsTitle = (filter: string, array: any[]): any[] => {
       item.title.toUpperCase().includes(filter.toUpperCase())
    )
 }
-
 
 const CompanyNews: NextPage<ICompanyNewsProps> = (props: ICompanyNewsProps) => {
    const [data, setData] = useState(props.data)
