@@ -1,0 +1,24 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model news_data {
+  id           String    @id @default(cuid())
+  request_id   Int
+  companyname  String
+  url          String?
+  insider      String?
+  outsider     String?
+  ceo          String?
+  title        String?
+  date         DateTime?
+  company_rel  Float?
+  insider_rel  Float?
+  outsider_rel Float?
+  ceo_rel      Float?
+}
