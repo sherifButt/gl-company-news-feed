@@ -16,8 +16,9 @@ export interface ICompanyNews {
 export interface INewsData extends Array<ICompanyNews>{ }
 
 export interface ICompanyNewsProps {
-    data: INewsData
-    message?:string
+   data: INewsData
+   companyName:string
+   message?: string
 }
 
 export interface IFetchCompanyOptions {

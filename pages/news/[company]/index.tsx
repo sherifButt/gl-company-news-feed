@@ -14,6 +14,8 @@ import {
 import { prisma } from '../../../db'
 import { toast } from 'react-toastify'
 import { dateHelper } from '../../../helpers/dateHelper'
+import NewsTable from '../../../components/NewsTable'
+import QuickSearch from '../../../components/forms/input/QuickSearch'
 
 /**
  * Function to check if a certain date is older than today's date by n days
@@ -129,7 +131,8 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
             console.error('Error while saving fresh data:', err.message)
             return {
                props: {
-                  data: { data: JSON.parse(JSON.stringify(newsData)) },
+                    data: JSON.parse(JSON.stringify(newsData)),
+                   companyName,
                   message: '⚠️ FAILURE:  Connecting to News api!',
                },
             }
@@ -138,7 +141,7 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
 
       // News is Fresh and ready to display
       return {
-         props: { data: JSON.parse(JSON.stringify(newsData)) },
+         props: { data: JSON.parse(JSON.stringify(newsData)), companyName },
       }
    } catch (err: any) {
       // Error
@@ -146,6 +149,7 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
       return {
          props: {
             data: [],
+            companyName,
             message: err.message,
          },
       }
@@ -161,45 +165,45 @@ const filterNewsTitle = (filter: string, array: any[]): any[] => {
 const CompanyNews: NextPage<ICompanyNewsProps> = (props: ICompanyNewsProps) => {
    const [data, setData] = useState(props.data)
    const [filteredData, setFilteredData] = useState(props.data)
+   const [searchValue, setSearchValue] = useState('')
 
    useEffect(() => {
       // alert user in case of db problems
       if (props.message) toast(props.message)
    }, [props.message])
    return (
-      <div className='inset-0'>
+      <div className=''>
          <Head>
-            <title>Company News Feed</title>
+            <title>{props.companyName} News Feed</title>
             <meta
-               name='Gaia lens Company news feed'
+               name={`Gaia lens Company news feed`}
                content='news related to companies listed in the stock market'
             />
             <link rel='icon' href='/favicon.ico' />
          </Head>
-         <div>
+         <div className='py-4'>
             <Link href='/' passHref>
                <a>
-                  <p>⬅</p>
+                  <p>← back to companies List</p>
                </a>
             </Link>
          </div>
-         <input
-            onChange={e => {
+         <div className='sm:flex sm:items-center'>
+            <div className='sm:flex-auto'>
+               <h1 className='text-xl font-semibold text-gray-900'>
+                  {props.companyName} News Feed
+               </h1>
+            </div>
+         </div>
+         <QuickSearch
+            inputHandler={(e: any) => {
+               setSearchValue(previous => e.target.value)
                setFilteredData(filterNewsTitle(e.target.value, data))
-            }}></input>
-         {filteredData.length > 0 ? (
-            <ul>
-               {' '}
-               {filteredData?.map((item, idx) => (
-                  <li key={idx}>
-                     {item.insider} - {item.title} on{' '}
-                     {dateHelper(item.date).alphabet}
-                  </li>
-               ))}
-            </ul>
-         ) : (
-            <p>no data available..</p>
-         )}
+            }}
+            value={searchValue}
+         />
+
+         <NewsTable data={filteredData} />
       </div>
    )
 }
