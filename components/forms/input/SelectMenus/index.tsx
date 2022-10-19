@@ -16,7 +16,7 @@ const SelectMenus: any = (props: IProps) => {
       <div className={props.className}>
          <label
             htmlFor='location'
-            className='block ml-8 text-xl font-light text-gray-400 sb-2'>
+            className='block ml-8 text-sm font-medium text-gray-400 sb-2'>
             Company
          </label>
          <div className='flex flex-row flex-wrap justify-between sm:flex-nowrap'>
@@ -49,7 +49,7 @@ const SelectMenus: any = (props: IProps) => {
                            <button
                                
                           type='button'
-                          className='inline-flex items-center justify-center object-center w-full px-4 py-2 text-sm font-light text-white uppercase bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto'>
+                          className='inline-flex items-center justify-center object-center w-full px-4 py-2 text-sm font-medium text-white uppercase bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto'>
                           get news
                        </button>
                        </a>
