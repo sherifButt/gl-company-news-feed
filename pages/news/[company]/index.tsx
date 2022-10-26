@@ -1,21 +1,13 @@
 import { GetServerSideProps, NextPage } from 'next'
-import { FetchEventResult } from 'next/dist/server/web/types'
 import Head from 'next/head'
 import Link from 'next/link'
-import { NextFetchEvent } from 'next/server'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 // import { freshNews } from '../../../data'
-import {
-   ICompanyNews,
-   ICompanyNewsProps,
-   IFetchCompanyOptions,
-   INewsData,
-} from '../../../types'
-import { prisma } from '../../../db'
 import { toast } from 'react-toastify'
-import { dateHelper } from '../../../helpers/dateHelper'
-import NewsTable from '../../../components/NewsTable'
 import QuickSearch from '../../../components/forms/input/QuickSearch'
+import NewsTable from '../../../components/NewsTable'
+import { prisma } from '../../../db'
+import { ICompanyNewsProps } from '../../../types'
 
 /**
  * Function to check if a certain date is older than today's date by n days
@@ -70,6 +62,7 @@ const getDataFromDB: any = async (companyName: string) => {
    return await newsData
 }
 
+
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
    const companyName: string = context.query.company
 
@@ -94,15 +87,15 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
             const freshNews: any[] = await fetchNews(companyName)
 
             if (!freshNews) throw Error(`${companyName} has no fresh data!`)
-            console.log(freshNews[0].title)
+            // console.log(freshNews[0].title)
 
             // is News repeated?
             if (newsData.find((item: any) => item.title == freshNews[0].title))
-               // Yes
+               // if Yes
                break fetchAndStoreFreshData
 
-            // No
-            // create news object to send to db
+            // if No
+            // then create news object to send to db
             const newsToStore = {
                request_id: freshNews[0]?.request_id,
                companyname: freshNews[0]?.companyname,
@@ -131,8 +124,8 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
             console.error('Error while saving fresh data:', err.message)
             return {
                props: {
-                    data: JSON.parse(JSON.stringify(newsData)),
-                   companyName,
+                  data: JSON.parse(JSON.stringify(newsData)),
+                  companyName,
                   message: '⚠️ FAILURE:  Connecting to News api!',
                },
             }
