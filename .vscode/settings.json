@@ -1,3 +1,21 @@
 {
-   "cSpell.words": ["companyname", "toastify"]
+   "cSpell.words": [
+      "companyname",
+      "toastify"
+   ],
+   "sqltools.connections": [
+      {
+         "mysqlOptions": {
+            "authProtocol": "default"
+         },
+         "previewLimit": 50,
+         "server": "localhost",
+         "port": 3306,
+         "driver": "MySQL",
+         "name": "test",
+         "database": "news_feed",
+         "username": "root",
+         "password": "admin1234"
+      }
+   ]
 }

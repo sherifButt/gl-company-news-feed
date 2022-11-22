@@ -31,17 +31,9 @@ export const getServerSideProps: any = async (context: any) => {
 }
 
 const Home: NextPage = (props: any) => {
-  const [selectedCompany, setSelectedCompany] = useState('Apple Inc.')
+   const [selectedCompany, setSelectedCompany] = useState('Apple Inc.')
    return (
       <div className='flex h-screen m-auto align-middle'>
-         <Head>
-            <title>Company News Feed</title>
-            <meta
-               name='Gaia lens Company news feed'
-               content='news related to companies listed in the stock market'
-            />
-            <link rel='icon' href='/favicon.ico' />
-         </Head>
          <SelectMenus
             selectedCompany={selectedCompany}
             setSelectedCompany={setSelectedCompany}
@@ -50,16 +42,6 @@ const Home: NextPage = (props: any) => {
             value={selectedCompany}
             className='m-auto align-middle w-96'
          />
-
-         {/* <ul>
-            {props.companies.map((item: any, idx: number) => (
-               <li key={idx}>
-                  <Link href={`/news/${item.companyname}`}>
-                     <a> {item.companyname}</a>
-                  </Link>
-               </li>
-            ))}
-         </ul> */}
       </div>
    )
 }
