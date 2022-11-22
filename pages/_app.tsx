@@ -13,8 +13,10 @@ if (process.env.NODE_ENV !== 'development') {
 const layouts = {
    L1,
 }
-
-function MyApp({ Component, pageProps }: AppProps) {
+type IComponent = {
+   layout:any
+}
+function MyApp({ Component, pageProps }: AppProps<IComponent>) {
    const Layout =
       typeof Component.layout === 'function'
          ? Component.layout
