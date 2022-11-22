@@ -11,11 +11,13 @@ if (process.env.NODE_ENV !== 'development') {
    console.error = () => {}
 }
 
-const layouts = {
+const layouts:any = {
    L1,
 }
+
 export interface MyPageComponent extends AppProps {
    Component: any
+   pageProps: any
 }
 function MyApp({ Component, pageProps }: MyPageComponent) {
    const Layout =
