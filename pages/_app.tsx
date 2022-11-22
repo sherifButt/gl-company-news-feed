@@ -4,6 +4,7 @@ import type { AppProps } from 'next/app'
 import { ToastContainer } from 'react-toastify'
 import { SessionProvider } from 'next-auth/react'
 import L1 from '../components/Layouts/OneColLayout'
+import { NextPageContext } from 'next'
 
 if (process.env.NODE_ENV !== 'development') {
    console.log = () => {}
@@ -13,10 +14,10 @@ if (process.env.NODE_ENV !== 'development') {
 const layouts = {
    L1,
 }
-type IComponent = {
-   layout:any
+export interface MyPageComponent extends AppProps {
+   Component: any
 }
-function MyApp({ Component, pageProps }: AppProps<IComponent>) {
+function MyApp({ Component, pageProps }: MyPageComponent) {
    const Layout =
       typeof Component.layout === 'function'
          ? Component.layout
